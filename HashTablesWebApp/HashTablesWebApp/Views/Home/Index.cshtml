@@ -1,6 +1,38 @@
-﻿@{
+﻿@model HashTablesWebApp.Models.HashTableLinearProbing
+@{
     ViewData["Title"] = "Home Page";
 }
+<table>
+    @{
+        <tr>
+            @for (var i = 0; i < Model.Buckets.Length; i++)
+            {
+                <td>
+                    Linked list @i
+                </td>
+            }
+        </tr>
+        var j = 0;
+
+        while (true)
+        {
+            <tr>
+                @{
+                    var cells = Model.Buckets.Select(x => x[j]).ToArray();
+                    if (cells.All(x => x == null))
+                        break;
+                    foreach (var cel in cells)
+                    {
+                        <td>
+                            @(cel?.Value.ToString() ?? string.Empty)
+                        </td>
+                    }
+                    j++;
+                }
+            </tr>
+        }
+    }
+</table>
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
